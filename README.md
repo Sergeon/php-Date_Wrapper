@@ -188,6 +188,6 @@ iterate($date , $do);
 	$do function has a ( $key , $date_time , $begin , $end ) signature, where $key is the DatePeriod used to iterate
 	key, $dt is the DatePeriod DateTime in every iteration, $begin is the older of the two Date_Wrapper passed to 		iterate, and
 	$end is  the future Date_Wrapper object.
-	Onlye Date_Wrapper can be passed as $date.
+	Only Date_Wrapper can be passed as $date.
 	Method is not chainable.
 
