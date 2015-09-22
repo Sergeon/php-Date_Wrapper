@@ -27,7 +27,7 @@ forge( $time_constructor = 'now' , $to_string_format='timestamp');
 -----
 	returns a new static instance
  
-get_date_ttime();
+get_date_time();
 -----
 	returns an internal DateTime object, which is commonly used to make all the date and time operations.
  
