@@ -11,15 +11,16 @@ Mauro Caffaratto
 licensed under the MIT and GPL licenses
 
 
-	Working with an internal DateTime object, Date_Wrapper
-	has a cleaner interface with a bunch of methods that isolates user to be aware about
-	datetime formats and period time formats.
 
-	Most functions are chainable.
+Date_Wrapper is a class that wraps an internal DateTime object,
+that has a cleaner interface with a bunch of methods that isolates user to be aware about
+datetime formats and period time formats.
 
-	__toString method is provided based on an output format, which defaults to timestamp.
- 
-	forge() is a chainable static constructor.
+Most functions are chainable.
+
+__toString method is provided based on an output format, which defaults to timestamp.
+
+forge() is a chainable static constructor.
  
 ### Api
 
