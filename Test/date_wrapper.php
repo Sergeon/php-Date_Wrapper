@@ -106,6 +106,22 @@ class Date_Wrapper_Test extends \PHPUnit_Framework_TestCase{
 
         $this->assertEquals($result[3] , '1920/10/13' );
 
+
+        $now = new Date_Wrapper();
+
+        $after =  Date_Wrapper::forge()->add_days(30);
+
+        $days = -9;
+
+        $now->iterate($after , $days , function( $k , $the_date , &$days ){
+
+            $days = $k;
+        });
+
+        $this->assertEquals('29' , $days );
+
+
+
     }
 
 }

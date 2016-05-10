@@ -633,12 +633,9 @@ class Date_Wrapper{
 		$interval = new DateInterval('P1D');
 		$period = new DatePeriod($begin->get_date_time(), $interval, $end->get_date_time() );
 
-		$i = 0;
 
 		foreach ( $period as $key =>  $dt ){
-			$i++;
-			if ($i > 20)
-				break;
+
 			$do( $key , $dt ,  $params , $this , $date  );
 		}
 	}
