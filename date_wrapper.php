@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  *
  * @author Sergeon https://github.com/Sergeon/ mauro_caffarat@gmail.com
@@ -141,20 +142,41 @@ class Date_Wrapper{
 
 	}
 
+	public function get_day_clean(){
+		return $this->date_time->format( 'j' );
+	}
 
+
+	/**
+	 * returns week day based on format
+	 * @param  string $format format of day
+	 * @return multi int|string the day of the week in different formats
+	 */
 	public function get_week_day( $format = 'w' ){
 
 		return $this->date_time->format( $format );
 	}
-	
+
+
+
+
+	/**
+	 * returns week day in string format
+	 * @return multi string the day of the week in different formats
+	 */
 	public function get_week_day_str(){
-		
-		return $this->date_time->format('j');
+
+		return $this->date_time->format('D');
 	}
 
 	public function get_hour(){
 
 		return $this->date_time->format('h');
+	}
+
+	public function get_hour_strict(){
+
+		return $this->date_time->format('H');
 	}
 
 
@@ -578,23 +600,27 @@ class Date_Wrapper{
 		throw new Exception(" Date_Wrapper::equal_timestamp only accepts DateTime or Date_Wrapper objects as parameter");
 
 	}
-	
-	
-	
+
+
+
 	/**
 	*Iterates from $this to current date, calling a $do function in every iteration
+	*Warning: $params paremeter must be passed by reference to the $do function to be actually touched by this method.
 	*@param mixed $date a Date object
-	*@param function $do function( $key , $date_time , $begin , $end ), where $key is the DatePeriod used to iterate
-	*key, $dt is the DatePeriod DateTime in every iteration, $begin is the older of the two Date_Wrapper passed to iterate, and
+	*@param mixed $params parameter to be passed to the $do function
+	*@param function $do function( $key , $date_time , $begin , $end ), where $key is the DatePeriod used to iterate,
+	*$date_time is the DatePeriod DateTime in every iteration, $begin is the older of the two Date_Wrapper passed to iterate, and
 	*$end the future Date_Wrapper
+	*TODO add DateInterval paramenter an allow any kind of interval iteration
+	*
 	*/
-	public function iterate( $date , $do ){
+	public function iterate( $date , &$params ,  $do  ){
 
 		$this_ts = $this->get_timestamp();
 		$date_ts = $date->get_timestamp();
-		
-		
-		
+
+
+
 		if($date->get_timestamp() > $this->get_timestamp()){
 			$begin = $this;
 			$end = $date;
@@ -603,12 +629,18 @@ class Date_Wrapper{
 			$begin = $date;
 			$end = $this;
 		}
-		
-		$interval = DateInterval::createFromDateString('1 day');
+
+		$interval = new DateInterval('P1D');
 		$period = new DatePeriod($begin->get_date_time(), $interval, $end->get_date_time() );
 
-		foreach ( $period as $key =>  $dt )
-			$do( $key , $dt , $this , $date );
+		$i = 0;
+
+		foreach ( $period as $key =>  $dt ){
+			$i++;
+			if ($i > 20)
+				break;
+			$do( $key , $dt ,  $params , $this , $date  );
+		}
 	}
 
 }//end class
