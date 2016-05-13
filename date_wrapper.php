@@ -43,7 +43,7 @@ class Date_Wrapper{
 		$type = gettype($time_constructor);
 
 		try{
-			if ($type == "string")
+			if ($type == "string" || "stringobject")
 				$this->date_time = new DateTime($time_constructor);
 			else if ($type == 'object' && get_class($time_constructor) === 'DateTime')
 				$this->date_time = $time_constructor;
